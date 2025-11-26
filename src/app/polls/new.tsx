@@ -1,10 +1,42 @@
+import { Feather } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 const CreatePoll = () => {
+  const [question, setQuestion] = useState('');
+  const [options, setOptions] = useState(['', '']);
+  const [error, setError] = useState('');
+
+  const createPoll = async () => {
+    setError('');
+    if (!question) {
+      setError('Please provide the question');
+      return;
+    }
+    const validOptions = options.filter((o) => !!o);
+    if (validOptions.length < 2) {
+      setError('Please provide at least 2 valid options');
+      return;
+    }
+
+    //TODO: Acá va la parte de Supabase aun no implementada
+
+    // const { data, error } = await supabase
+    //   .from('polls')
+    //   .insert([{ question, options: validOptions }])
+    //   .select();
+    // if (error) {
+    //   Alert.alert('Failed to create the poll');
+    //   console.log(error);
+    //   return;
+    // }
+    // router.back();
+    // console.warn('Create');
+  };
+
   return (
-    <View>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
           title: 'Polls',
@@ -18,11 +50,62 @@ const CreatePoll = () => {
           headerRight: () => <Text>Save</Text>,
         }}
       />
-      <Text>CreatePoll</Text>
+      <Text style={styles.label}>Create Poll</Text>
+      <TextInput
+        value={question}
+        onChangeText={setQuestion}
+        placeholder='Type your question here'
+        style={styles.input}
+      />
+      <Text style={styles.label}>Options</Text>
+      {options.map((option, index) => (
+        <View key={index} style={{ justifyContent: 'center' }}>
+          <TextInput
+            value={option}
+            onChangeText={(text) => {
+              const updated = [...options];
+              updated[index] = text;
+              setOptions(updated);
+            }}
+            placeholder={`Option ${index + 1}`}
+            style={styles.input}
+          />
+          <Feather
+            name='x'
+            size={18}
+            color='gray'
+            onPress={() => {
+              // delete option based index
+              const updated = [...options];
+              updated.splice(index, 1);
+              setOptions(updated);
+            }}
+            style={{ position: 'absolute', right: 10 }}
+          />
+        </View>
+      ))}
+      <Button title='Add option' onPress={() => setOptions([...options, ''])} />
+
+      <Button title='Create poll' onPress={createPoll} />
+      <Text style={{ color: 'crimson' }}>{error}</Text>
     </View>
   );
 };
 
 export default CreatePoll;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    gap: 5,
+  },
+  label: {
+    fontWeight: '500',
+    marginTop: 10,
+  },
+  input: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 5,
+  },
+});
