@@ -7,7 +7,18 @@ const polls = [1, 2, 3];
 const HomeScreen = () => {
   return (
     <>
-      <Stack.Screen options={{ title: 'Polls' }} />
+      <Stack.Screen
+        options={{
+          title: 'Polls',
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
       <FlatList
         data={polls}
         style={{ backgroundColor: 'gainsboro' }}
