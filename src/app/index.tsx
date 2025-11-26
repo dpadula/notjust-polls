@@ -19,8 +19,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 10,
     backgroundColor: 'gainsboro',
   },
   pollTitle: {
@@ -29,5 +28,7 @@ const styles = StyleSheet.create({
   },
   pollContainer: {
     backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 5,
   },
 });
