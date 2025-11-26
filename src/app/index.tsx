@@ -1,16 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+
+const polls = [1, 2, 3];
 
 const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>Hello World</Text>
-      <View style={styles.pollContainer}>
-        <Text>index</Text>
-      </View>
-      <StatusBar style='auto' />
-    </View>
+    <FlatList
+      data={polls}
+      style={{ backgroundColor: 'gainsboro' }}
+      contentContainerStyle={styles.container}
+      renderItem={({ item }) => (
+        <View style={styles.pollContainer}>
+          <Text>{item}</Text>
+        </View>
+      )}
+    />
   );
 };
 
@@ -20,7 +24,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: 'gainsboro',
+    gap: 5,
   },
   pollTitle: {
     fontSize: 20,
