@@ -1,3 +1,4 @@
+import { Stack } from 'expo-router';
 import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
@@ -5,16 +6,19 @@ const polls = [1, 2, 3];
 
 const HomeScreen = () => {
   return (
-    <FlatList
-      data={polls}
-      style={{ backgroundColor: 'gainsboro' }}
-      contentContainerStyle={styles.container}
-      renderItem={({ item }) => (
-        <View style={styles.pollContainer}>
-          <Text>{item}</Text>
-        </View>
-      )}
-    />
+    <>
+      <Stack.Screen options={{ title: 'Polls' }} />
+      <FlatList
+        data={polls}
+        style={{ backgroundColor: 'gainsboro' }}
+        contentContainerStyle={styles.container}
+        renderItem={({ item }) => (
+          <View style={styles.pollContainer}>
+            <Text>{item}</Text>
+          </View>
+        )}
+      />
+    </>
   );
 };
 
