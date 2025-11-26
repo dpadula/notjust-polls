@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -8,6 +9,7 @@ const HomeScreen = () => {
       <View style={styles.pollContainer}>
         <Text>index</Text>
       </View>
+      <StatusBar style='auto' />
     </View>
   );
 };
@@ -19,9 +21,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'gainsboro',
+  },
+  pollTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   pollContainer: {
-    backgroundColor: 'red',
+    backgroundColor: 'white',
   },
 });
