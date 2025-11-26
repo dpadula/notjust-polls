@@ -1,3 +1,4 @@
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link, Stack } from 'expo-router';
 import React from 'react';
 import { FlatList, StyleSheet, Text } from 'react-native';
@@ -21,6 +22,11 @@ const HomeScreen = () => {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          headerRight: () => (
+            <Link href={`/polls/new` as any} asChild>
+              <AntDesign name='plus' size={24} color='white' />
+            </Link>
+          ),
         }}
       />
       <FlatList
