@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
 
 const poll = {
   question: 'What is your favorite color?',
@@ -11,6 +11,11 @@ const poll = {
 const PollDetails = () => {
   const { id } = useLocalSearchParams();
   const [selected, setSelected] = useState('Red');
+
+  const votar = () => {
+    console.warn(`Voted for ${selected}`);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.question}>
@@ -30,6 +35,9 @@ const PollDetails = () => {
           <Text key={option}>{option}</Text>
         </Pressable>
       ))}
+      <View style={styles.voteButton}>
+        <Button title='Votar' onPress={votar} />
+      </View>
     </View>
   );
 };
@@ -53,5 +61,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
+  },
+  voteButton: {
+    padding: 10,
   },
 });
