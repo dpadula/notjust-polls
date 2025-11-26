@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 const poll = {
   question: 'What is your favorite color?',
@@ -17,15 +17,18 @@ const PollDetails = () => {
         {poll.question} {id}
       </Text>
       {poll.options.map((option) => (
-        <View key={option} style={styles.optionsContainer}>
+        <Pressable
+          key={option}
+          style={styles.optionsContainer}
+          onPress={() => setSelected(option)}
+        >
           <Feather
             name={selected === option ? 'check-circle' : 'circle'}
             size={20}
             color={selected === option ? 'green' : 'black'}
-            onPress={() => setSelected(option)}
           />
           <Text key={option}>{option}</Text>
-        </View>
+        </Pressable>
       ))}
     </View>
   );
