@@ -1,7 +1,8 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link, Stack } from 'expo-router';
-import React from 'react';
-import { FlatList, StyleSheet, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, StyleSheet, Text } from 'react-native';
+import { supabase } from '../lib/supabase';
 
 const polls = [
   { id: 1, title: 'Poll 1' },
@@ -10,6 +11,21 @@ const polls = [
 ];
 
 const HomeScreen = () => {
+  const [polls, setPolls] = useState([]);
+
+  useEffect(() => {
+    const fetchPolls = async () => {
+      console.log('Fetching...');
+
+      let { data, error } = await supabase.from('polls').select('*');
+      if (error) {
+        Alert.alert('Error fetching data');
+      }
+      setPolls(data);
+    };
+    fetchPolls();
+  }, []);
+
   return (
     <>
       <Stack.Screen
@@ -36,7 +52,7 @@ const HomeScreen = () => {
         renderItem={({ item }) => (
           <Link href={`/polls/${item.id}` as any} style={styles.pollContainer}>
             <Text>
-              {item.id} {item.title}
+              {item.id} {item.question}
             </Text>
           </Link>
         )}
