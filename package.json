@@ -12,7 +12,8 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "gen-types": "npx supabase gen types typescript --linked > src/types/supabase.ts",
-    "link-supa": "npx supabase link  --project-ref ktobgrzfunjocnesablz"
+    "link-supa": "npx supabase link  --project-ref ktobgrzfunjocnesablz",
+    "login-supa": "npx supabase login"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
