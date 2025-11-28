@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuth } from '../providers/AuthProvider';
 
 const ProfileScreen = () => {
-  const { session, user } = useAuth();
+  const { session } = useAuth();
 
   return (
     <View>
