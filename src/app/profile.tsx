@@ -1,11 +1,13 @@
+import { Redirect } from 'expo-router';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { supabase } from '../lib/supabase';
 import { useAuth } from './providers/AuthProvider';
 
 const ProfileScreen = () => {
-  const { session } = useAuth();
+  const { session, user } = useAuth();
 
+  if (!user) return <Redirect href='/login' />;
   return (
     <View>
       {session && session.user && (
