@@ -11,9 +11,7 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "gen-types": "npx supabase gen types typescript --linked > src/types/supabase.ts",
-    "link-supa": "npx supabase link  --project-ref ktobgrzfunjocnesablz",
-    "login-supa": "npx supabase login"
+    "gen-types": "npx supabase gen types typescript --project-id ktobgrzfunjocnesablz --schema public > src/types/supabase.ts"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
@@ -48,6 +46,7 @@
     "@types/react": "~19.1.0",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
+    "supabase": "^2.63.1",
     "typescript": "~5.9.2"
   },
   "private": true
