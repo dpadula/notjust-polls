@@ -21,9 +21,9 @@ const PollDetails = () => {
       <Text style={styles.question}>
         {poll.question} {id}
       </Text>
-      {poll.options.map((option) => (
+      {poll.options.map((option, index) => (
         <Pressable
-          key={option}
+          key={index}
           style={styles.optionsContainer}
           onPress={() => setSelected(option)}
         >
