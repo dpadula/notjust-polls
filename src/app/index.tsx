@@ -38,9 +38,15 @@ const HomeScreen = () => {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          headerTitleAlign: 'center',
           headerRight: () => (
             <Link href={`/polls/new` as any} asChild>
               <AntDesign name='plus' size={24} color='white' />
+            </Link>
+          ),
+          headerLeft: () => (
+            <Link href={`/login` as any} asChild>
+              <AntDesign name='user' size={24} color='white' />
             </Link>
           ),
         }}
