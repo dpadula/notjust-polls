@@ -45,7 +45,7 @@ const HomeScreen = () => {
             </Link>
           ),
           headerLeft: () => (
-            <Link href={`/login` as any} asChild>
+            <Link href={`/profile` as any} asChild>
               <AntDesign name='user' size={24} color='white' />
             </Link>
           ),
