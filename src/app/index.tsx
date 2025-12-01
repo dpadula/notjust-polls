@@ -3,15 +3,10 @@ import { AntDesign } from '@expo/vector-icons';
 import { Link, Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, StyleSheet, Text } from 'react-native';
-
-const polls = [
-  { id: 1, title: 'Poll 1' },
-  { id: 2, title: 'Poll 2' },
-  { id: 3, title: 'Poll 3' },
-];
+import { Poll } from '../types/db';
 
 const HomeScreen = () => {
-  const [polls, setPolls] = useState([]);
+  const [polls, setPolls] = useState<Poll[]>([]);
 
   useEffect(() => {
     const fetchPolls = async () => {
@@ -21,7 +16,7 @@ const HomeScreen = () => {
       if (error) {
         Alert.alert('Error fetching data');
       }
-      setPolls(data);
+      setPolls(data || []);
     };
     fetchPolls();
   }, []);
@@ -57,9 +52,7 @@ const HomeScreen = () => {
         contentContainerStyle={styles.container}
         renderItem={({ item }) => (
           <Link href={`/polls/${item.id}` as any} style={styles.pollContainer}>
-            <Text>
-              {item.id} {item.question}
-            </Text>
+            <Text> {item.question}</Text>
           </Link>
         )}
       />
