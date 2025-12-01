@@ -14,6 +14,8 @@ type AuthContextType = {
   isAuthenticated: boolean;
 };
 
+//TODO: Manejar el usuario anonimo en la interfaz de usuario
+// (select auth.jwt() ->> 'is_anonymous')::boolean is false <----Esto va en las políticas de la tabla polls para cuando el usuario quiere crear una encuesta
 const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
