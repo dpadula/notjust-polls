@@ -1,20 +1,47 @@
+import { supabase } from '@/lib/supabase';
+import { Poll } from '@/types/db';
 import { Feather } from '@expo/vector-icons';
 import { useLocalSearchParams } from 'expo-router';
-import React, { useState } from 'react';
-import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
-
-const poll = {
-  question: 'What is your favorite color?',
-  options: ['Red', 'Green', 'Blue'],
-};
+import React, { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 const PollDetails = () => {
-  const { id } = useLocalSearchParams();
-  const [selected, setSelected] = useState('Red');
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const [selected, setSelected] = useState('');
+  const [poll, setPoll] = useState<Poll | null>(null);
 
   const votar = () => {
     console.warn(`Voted for ${selected}`);
   };
+
+  useEffect(() => {
+    const fetchPolls = async () => {
+      console.log('Fetching...');
+
+      let { data, error } = await supabase
+        .from('polls')
+        .select('*')
+        .eq('id', Number.parseInt(id))
+        .single();
+      if (error) {
+        Alert.alert('Error fetching data');
+      }
+      setPoll(data);
+    };
+    fetchPolls();
+  }, []);
+
+  if (!poll) {
+    return <ActivityIndicator />;
+  }
 
   return (
     <View style={styles.container}>

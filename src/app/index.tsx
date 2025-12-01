@@ -1,9 +1,9 @@
 import { supabase } from '@/lib/supabase';
+import { Poll } from '@/types/db';
 import { AntDesign } from '@expo/vector-icons';
 import { Link, Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, StyleSheet, Text } from 'react-native';
-import { Poll } from '../types/db';
 
 const HomeScreen = () => {
   const [polls, setPolls] = useState<Poll[]>([]);
