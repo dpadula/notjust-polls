@@ -1,8 +1,9 @@
+import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/providers/AuthProvider';
 import { Feather } from '@expo/vector-icons';
-import { Redirect, Stack } from 'expo-router';
+import { Redirect, router, Stack } from 'expo-router';
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 const CreatePoll = () => {
   const [question, setQuestion] = useState('');
@@ -26,19 +27,17 @@ const CreatePoll = () => {
       return;
     }
 
-    //TODO: Acá va la parte de Supabase aun no implementada
-
-    // const { data, error } = await supabase
-    //   .from('polls')
-    //   .insert([{ question, options: validOptions }])
-    //   .select();
-    // if (error) {
-    //   Alert.alert('Failed to create the poll');
-    //   console.log(error);
-    //   return;
-    // }
-    // router.back();
-    // console.warn('Create');
+    const { data, error } = await supabase
+      .from('polls')
+      .insert([{ question, options: validOptions }])
+      .select();
+    if (error) {
+      Alert.alert('Failed to create the poll');
+      console.log(error);
+      return;
+    }
+    router.back();
+    console.warn('Create');
   };
 
   if (!user) return <Redirect href='/login' />;
