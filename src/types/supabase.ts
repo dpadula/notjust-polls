@@ -39,18 +39,21 @@ export type Database = {
         Row: {
           created_at: string
           id: number
+          option: string | null
           poll_id: number | null
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: number
+          option?: string | null
           poll_id?: number | null
           user_id: string
         }
         Update: {
           created_at?: string
           id?: number
+          option?: string | null
           poll_id?: number | null
           user_id?: string
         }

@@ -23,6 +23,11 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+
+      //TODO: Esto tambien debe manejarse desde la interfaz de usuario
+      if (!session) {
+        supabase.auth.signInAnonymously();
+      }
     });
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);

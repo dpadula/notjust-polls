@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import { Poll } from '@/types/db';
+import { Poll, Vote } from '@/types/db';
 import { Feather } from '@expo/vector-icons';
 import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
@@ -12,20 +12,18 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useAuth } from '../../providers/AuthProvider';
 
 const PollDetails = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const [selected, setSelected] = useState('');
   const [poll, setPoll] = useState<Poll | null>(null);
+  const [userVote, setUserVote] = useState<Vote | null>(null);
+  const [selected, setSelected] = useState<string | null>('');
 
-  const votar = () => {
-    console.warn(`Voted for ${selected}`);
-  };
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchPolls = async () => {
-      console.log('Fetching...');
-
       let { data, error } = await supabase
         .from('polls')
         .select('*')
@@ -36,12 +34,57 @@ const PollDetails = () => {
       }
       setPoll(data);
     };
+
+    const fetchUserVote = async () => {
+      if (!user) {
+        return;
+      }
+      let { data, error } = await supabase
+        .from('votes')
+        .select('*')
+        .eq('poll_id', Number.parseInt(id))
+        .eq('user_id', user.id)
+        .limit(1)
+        .single();
+
+      setUserVote(data);
+      if (data) {
+        setSelected(data.option);
+      }
+    };
+
     fetchPolls();
+    fetchUserVote();
   }, []);
 
   if (!poll) {
     return <ActivityIndicator />;
   }
+
+  const votar = async () => {
+   const newVote: any = {
+     option: selected,
+     poll_id: poll.id,
+     user_id: user?.id,
+   };
+   if (userVote) {
+     newVote.id = userVote.id;
+   }
+   const { data, error } = await supabase
+     .from('votes')
+     .upsert([newVote])
+     .select()
+     .single();
+
+   if (error) {
+     console.log(error);
+     Alert.alert('Failed to vote');
+   } else {
+     setUserVote(data);
+     Alert.alert('Thank you for your vote');
+   }
+    console.warn(`Voted for ${selected}`);
+  };
 
   return (
     <View style={styles.container}>
