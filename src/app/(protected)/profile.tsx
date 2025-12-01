@@ -1,7 +1,7 @@
+import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/providers/AuthProvider';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { supabase } from '../../lib/supabase';
-import { useAuth } from '../providers/AuthProvider';
 
 const ProfileScreen = () => {
   const { session } = useAuth();

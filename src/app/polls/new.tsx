@@ -1,8 +1,8 @@
+import { useAuth } from '@/providers/AuthProvider';
 import { Feather } from '@expo/vector-icons';
 import { Redirect, Stack } from 'expo-router';
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { useAuth } from '../providers/AuthProvider';
 
 const CreatePoll = () => {
   const [question, setQuestion] = useState('');

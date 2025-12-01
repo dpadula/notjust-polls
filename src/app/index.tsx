@@ -1,8 +1,8 @@
+import { supabase } from '@/lib/supabase';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link, Stack } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, StyleSheet, Text } from 'react-native';
-import { supabase } from '../lib/supabase';
 
 const polls = [
   { id: 1, title: 'Poll 1' },

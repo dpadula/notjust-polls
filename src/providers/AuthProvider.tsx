@@ -1,3 +1,4 @@
+import { supabase } from '@/lib/supabase';
 import { Session, User } from '@supabase/supabase-js';
 import {
   createContext,
@@ -6,7 +7,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { supabase } from '../../lib/supabase';
 
 type AuthContextType = {
   session: Session | null;
@@ -34,7 +34,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     </AuthContext.Provider>
   );
 };
-export { AuthContext, AuthProvider };
 
 export const useAuth = () => {
   return useContext(AuthContext);
