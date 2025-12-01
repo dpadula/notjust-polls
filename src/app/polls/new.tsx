@@ -1,12 +1,18 @@
 import { Feather } from '@expo/vector-icons';
-import { Stack } from 'expo-router';
+import { Redirect, Stack } from 'expo-router';
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useAuth } from '../providers/AuthProvider';
 
 const CreatePoll = () => {
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '']);
   const [error, setError] = useState('');
+
+  const { user } = useAuth();
+
+  // Este layout protege las rutas hijas, redirigiendo a login si no hay usuario
+  // y sino renderiza el Slot (contenido hijo)
 
   const createPoll = async () => {
     setError('');
@@ -34,6 +40,8 @@ const CreatePoll = () => {
     // router.back();
     // console.warn('Create');
   };
+
+  if (!user) return <Redirect href='/login' />;
 
   return (
     <View style={styles.container}>
