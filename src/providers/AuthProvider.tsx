@@ -11,11 +11,13 @@ import {
 type AuthContextType = {
   session: Session | null;
   user: User | null;
+  isAuthenticated: boolean;
 };
 
 const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
+  isAuthenticated: false,
 });
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
@@ -34,7 +36,13 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     });
   }, []);
   return (
-    <AuthContext.Provider value={{ session, user: session?.user ?? null }}>
+    <AuthContext.Provider
+      value={{
+        session,
+        user: session?.user ?? null,
+        isAuthenticated: !!session?.user && !session.user.is_anonymous,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

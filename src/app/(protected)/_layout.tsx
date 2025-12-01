@@ -3,11 +3,11 @@ import { Redirect, Slot } from 'expo-router';
 import React from 'react';
 
 const ProtectedLayout = () => {
-  const { user } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   // Este layout protege las rutas hijas, redirigiendo a login si no hay usuario
   // y sino renderiza el Slot (contenido hijo)
-  if (!user) return <Redirect href='/login' />;
+  if (!isAuthenticated) return <Redirect href='/login' />;
   return <Slot />;
 };
 
